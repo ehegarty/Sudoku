@@ -7,7 +7,8 @@ import operator
 def getOriginalImage(imgName):
     imgPath = f"puzzles/{imgName}.jpg"
     img = cv2.imread(imgPath)
-    img = cv2.resize(img, (0, 0), fx=0.2, fy=0.2)
+    # img = cv2.resize(img, (0, 0), fx=0.2, fy=0.2)
+    img = cv2.resize(img, (0, 0), fx=0.4, fy=0.4)
     return img
 
 
@@ -227,23 +228,23 @@ def showDigits(digits, colour=255):
 
 def getBoard():
     # Get the original img
-    originalImg = getOriginalImage(159)
-    # showImg("Original", originalImg)
+    originalImg = getOriginalImage("multiple")
+    showImg("Original", originalImg)
 
     # Set Thresholds up on the img
     preProcessedImg = preProcessImage(originalImg)
-    # showImg("After Thresholding", preProcessedImg)
+    showImg("After Thresholding", preProcessedImg)
 
     # Get the sudoku grid borders
     gridWithBorder, gridEdges = getGridBorder(originalImg.copy(), preProcessedImg)
-    # showImg("Grid with Border", gridWithBorder)
+    showImg("Grid with Border", gridWithBorder)
 
     # Get the grid corner points
     corners = getGridCornerPoints(gridEdges)
 
     # get the extracted grid on its own
     croppedGridImg = cropAndWarpImg(originalImg, corners)
-    # showImg("Grid Only", croppedGridImg)
+    showImg("Grid Only", croppedGridImg)
 
     gridCells = getGridCells(croppedGridImg)
     # print(gridCells)
